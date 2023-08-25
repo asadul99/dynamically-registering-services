@@ -11,6 +11,7 @@ namespace DynamicServiceRegistration
             foreach (var serviceType in targetServices)
             {
                 var implementdInterfaces = serviceType.GetInterfaces();
+                //Class implemented interface
                 if (implementdInterfaces != null && implementdInterfaces.Any())
                 {
                     foreach (var @interface in implementdInterfaces)
@@ -20,6 +21,7 @@ namespace DynamicServiceRegistration
                 }
                 else
                 {
+                    //Class doesn't implemented interface
                     RegisterService(serviceCollection, null, serviceType, lifetime);
                 }
             }

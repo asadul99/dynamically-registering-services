@@ -1,8 +1,5 @@
 using DynamicServiceRegistration;
 using DynamicServiceRegistration.ServiceAttributes;
-using DynamicServiceRegistration.Services;
-
-using Microsoft.OpenApi.Writers;
 
 using System.Reflection;
 
