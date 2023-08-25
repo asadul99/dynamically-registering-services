@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicServiceRegistration", "DynamicServiceRegistration.csproj", "{5C07E049-15F5-46A5-A11E-44D306BB3A2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C07E049-15F5-46A5-A11E-44D306BB3A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C07E049-15F5-46A5-A11E-44D306BB3A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C07E049-15F5-46A5-A11E-44D306BB3A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C07E049-15F5-46A5-A11E-44D306BB3A2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CAE6F875-ECF9-4D0C-B33F-0C33C5776985}
+	EndGlobalSection
+EndGlobal
