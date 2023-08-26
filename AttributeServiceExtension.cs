@@ -6,16 +6,24 @@ namespace DynamicServiceRegistration
 {
     public static class AttributeServiceExtension
     {
-        public static IServiceCollection RegisterServicesWithAttribute<TAttribute>(this IServiceCollection serviceCollection, Assembly assembly) where TAttribute : Attribute
+        public static IServiceCollection RegisterServicesWithAttributes(this IServiceCollection serviceCollection, Assembly assembly)
         {
-            var targetServices = assembly.GetTypes().Where(type => type.GetCustomAttribute<TAttribute>() != null);
+            var targetServices = assembly.GetTypes().Where(type =>
+                                                                    type.GetCustomAttribute<ScopedServiceAttribute>() != null
+                                                                    ||
+                                                                    type.GetCustomAttribute<TransientServiceAttribute>() != null
+                                                                    ||
+                                                                    type.GetCustomAttribute<SingletonServiceAttribute>() != null
+                                                          );
 
             foreach (var serviceType in targetServices)
             {
-                var attribute = serviceType.GetCustomAttribute<TAttribute>();
-                ServiceLifetime lifetime = GetLifetimeFromAttribute(attribute);
-
+                //get all interface that the class implemented
                 var implementedInterfaces = serviceType.GetInterfaces();
+
+                //get the lifetime of the class
+                ServiceLifetime lifetime = GetLifetimeFromAttribute(serviceType);
+
                 //Class implemented interface
                 if (implementedInterfaces != null && implementedInterfaces.Any())
                 {
@@ -44,14 +52,21 @@ namespace DynamicServiceRegistration
             return serviceCollection;
         }
 
-        private static ServiceLifetime GetLifetimeFromAttribute(Attribute attribute)
+        private static ServiceLifetime GetLifetimeFromAttribute(Type serviceType)
         {
-            // Adjust this based on how you retrieve lifetime information from the attribute
-            // For example, if the attribute has a property named "Lifetime", you might use:
-            // return ((YourAttributeType)attribute).Lifetime;
-
-            // For now, let's assume the attribute has a property named "Lifetime" of type ServiceLifetime
-            return (attribute as ILifetimeAttribute)?.Lifetime ?? ServiceLifetime.Scoped;
+            if (serviceType.GetCustomAttribute<ScopedServiceAttribute>() != null)
+            {
+                return ServiceLifetime.Scoped;
+            }
+            else if (serviceType.GetCustomAttribute<TransientServiceAttribute>() != null)
+            {
+                return ServiceLifetime.Transient;
+            }
+            else if (serviceType.GetCustomAttribute<SingletonServiceAttribute>() != null)
+            {
+                return ServiceLifetime.Singleton;
+            }
+            return ServiceLifetime.Scoped;
         }
     }
 }

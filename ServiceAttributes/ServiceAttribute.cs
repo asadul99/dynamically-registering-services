@@ -1,20 +1,12 @@
 ﻿namespace DynamicServiceRegistration.ServiceAttributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public class SingletonServiceAttribute : Attribute, ILifetimeAttribute
-    {
-        public ServiceLifetime Lifetime => ServiceLifetime.Singleton;
-    }
+    public class SingletonServiceAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public class ScopedServiceAttribute : Attribute, ILifetimeAttribute
-    {
-        public ServiceLifetime Lifetime => ServiceLifetime.Scoped;
-    }
+    public class ScopedServiceAttribute : Attribute { }
+
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public class TransientServiceAttribute : Attribute, ILifetimeAttribute
-    {
-        public ServiceLifetime Lifetime => ServiceLifetime.Transient;
-    }
+    public class TransientServiceAttribute : Attribute { }
 }
