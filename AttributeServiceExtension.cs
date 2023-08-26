@@ -15,11 +15,11 @@ namespace DynamicServiceRegistration
                 var attribute = serviceType.GetCustomAttribute<TAttribute>();
                 ServiceLifetime lifetime = GetLifetimeFromAttribute(attribute);
 
-                var implementdInterfaces = serviceType.GetInterfaces();
+                var implementedInterfaces = serviceType.GetInterfaces();
                 //Class implemented interface
-                if (implementdInterfaces != null && implementdInterfaces.Any())
+                if (implementedInterfaces != null && implementedInterfaces.Any())
                 {
-                    foreach (var @interface in implementdInterfaces)
+                    foreach (var @interface in implementedInterfaces)
                     {
                         RegisterService(serviceCollection, @interface, serviceType, lifetime);
                     }
@@ -46,21 +46,12 @@ namespace DynamicServiceRegistration
 
         private static ServiceLifetime GetLifetimeFromAttribute(Attribute attribute)
         {
-            if (attribute is ScopedService)
-            {
-                return ServiceLifetime.Scoped;
-            }
-            else if (attribute is SingletonService)
-            {
-                return ServiceLifetime.Singleton;
-            }
-            else if (attribute is TransientService)
-            {
-                return ServiceLifetime.Transient;
-            }
+            // Adjust this based on how you retrieve lifetime information from the attribute
+            // For example, if the attribute has a property named "Lifetime", you might use:
+            // return ((YourAttributeType)attribute).Lifetime;
 
-            // Default to Scoped if the attribute type is unknown
-            return ServiceLifetime.Scoped;
+            // For now, let's assume the attribute has a property named "Lifetime" of type ServiceLifetime
+            return (attribute as ILifetimeAttribute)?.Lifetime ?? ServiceLifetime.Scoped;
         }
     }
 }

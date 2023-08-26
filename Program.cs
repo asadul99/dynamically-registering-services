@@ -15,9 +15,9 @@ builder.Services.AddSwaggerGen();
 var assembly = Assembly.GetExecutingAssembly(); // Change this to your assembly
 
 //Register services dynamically
-builder.Services.RegisterServicesWithAttribute<ScopedService>(assembly);
-builder.Services.RegisterServicesWithAttribute<SingletonService>(assembly);
-builder.Services.RegisterServicesWithAttribute<TransientService>(assembly);
+builder.Services.RegisterServicesWithAttribute<ScopedServiceAttribute>(assembly);
+builder.Services.RegisterServicesWithAttribute<SingletonServiceAttribute>(assembly);
+builder.Services.RegisterServicesWithAttribute<TransientServiceAttribute>(assembly);
 
 
 var app = builder.Build();

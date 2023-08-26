@@ -21,7 +21,7 @@ namespace DynamicServiceRegistration.Controllers
         }
 
         [HttpGet(Name = "ScopedServiceNoInterface")]
-        public string ScopedServiceStandalone([FromServices] ScopedServiceNoInterface scopedServiceStandalone)
+        public string ScopedServiceNoInterface([FromServices] ScopedServiceNoInterface scopedServiceStandalone)
         {
             return scopedServiceStandalone.GetServiceName();
         }
