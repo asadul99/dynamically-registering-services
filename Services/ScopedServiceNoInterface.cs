@@ -3,11 +3,11 @@
 namespace DynamicServiceRegistration.Services
 {
     [ScopedService]
-    public class ScopedServiceStandalone
+    public class ScopedServiceNoInterface
     {
         public string GetServiceName()
         {
-            return nameof(ScopedServiceStandalone);
+            return nameof(ScopedServiceNoInterface);
         }
     }
 }

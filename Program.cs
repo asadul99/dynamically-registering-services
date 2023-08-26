@@ -13,9 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var assembly = Assembly.GetExecutingAssembly(); // Change this to your assembly
-builder.Services.RegisterOfType<ScopedService>(assembly, ServiceLifetime.Scoped);
-builder.Services.RegisterOfType<SingletonService>(assembly, ServiceLifetime.Singleton);
-builder.Services.RegisterOfType<TransientService>(assembly, ServiceLifetime.Transient);
+
+//Register services dynamically
+builder.Services.RegisterServicesWithAttribute<ScopedService>(assembly);
+builder.Services.RegisterServicesWithAttribute<SingletonService>(assembly);
+builder.Services.RegisterServicesWithAttribute<TransientService>(assembly);
 
 
 var app = builder.Build();

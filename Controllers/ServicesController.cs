@@ -20,8 +20,8 @@ namespace DynamicServiceRegistration.Controllers
             return scopedServiceB.GetServiceName();
         }
 
-        [HttpGet(Name = "ScopedServiceStandalone")]
-        public string ScopedServiceStandalone([FromServices] ScopedServiceStandalone scopedServiceStandalone)
+        [HttpGet(Name = "ScopedServiceNoInterface")]
+        public string ScopedServiceStandalone([FromServices] ScopedServiceNoInterface scopedServiceStandalone)
         {
             return scopedServiceStandalone.GetServiceName();
         }

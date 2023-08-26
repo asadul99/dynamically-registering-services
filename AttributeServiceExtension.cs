@@ -1,15 +1,20 @@
-﻿using System.Reflection;
+﻿using DynamicServiceRegistration.ServiceAttributes;
+
+using System.Reflection;
 
 namespace DynamicServiceRegistration
 {
     public static class AttributeServiceExtension
     {
-        public static IServiceCollection RegisterOfType<TAttribute>(this IServiceCollection serviceCollection, Assembly assembly, ServiceLifetime lifetime) where TAttribute : Attribute
+        public static IServiceCollection RegisterServicesWithAttribute<TAttribute>(this IServiceCollection serviceCollection, Assembly assembly) where TAttribute : Attribute
         {
             var targetServices = assembly.GetTypes().Where(type => type.GetCustomAttribute<TAttribute>() != null);
 
             foreach (var serviceType in targetServices)
             {
+                var attribute = serviceType.GetCustomAttribute<TAttribute>();
+                ServiceLifetime lifetime = GetLifetimeFromAttribute(attribute);
+
                 var implementdInterfaces = serviceType.GetInterfaces();
                 //Class implemented interface
                 if (implementdInterfaces != null && implementdInterfaces.Any())
@@ -37,6 +42,25 @@ namespace DynamicServiceRegistration
                 _ => @interface != null ? serviceCollection.AddScoped(@interface, serviceType) : serviceCollection.AddScoped(serviceType),
             };
             return serviceCollection;
+        }
+
+        private static ServiceLifetime GetLifetimeFromAttribute(Attribute attribute)
+        {
+            if (attribute is ScopedService)
+            {
+                return ServiceLifetime.Scoped;
+            }
+            else if (attribute is SingletonService)
+            {
+                return ServiceLifetime.Singleton;
+            }
+            else if (attribute is TransientService)
+            {
+                return ServiceLifetime.Transient;
+            }
+
+            // Default to Scoped if the attribute type is unknown
+            return ServiceLifetime.Scoped;
         }
     }
 }
